@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-// const express = require('express');
-// const cors = require('cors');
-// const axios = require('axios');
 
 class App extends Component {
 
@@ -22,37 +19,35 @@ class App extends Component {
   }
 
   enterPressed(event) {
-    // const app = express();
-    
-    // const corsOptions = {
-    //   origin: '*',
-    //   optionsSuccessStatus: 200,
-    // };
-    
-    // app.options('*', cors(corsOptions));
-    // app.use(cors(corsOptions));
 
     var name = this.state.name;
+
+    var url = 'http://localhost:7000/' + name;
 
     var code = event.keyCode || event.which;
 
     if (code === 13) {
 
-      // fetch('https://od-api.oxforddictionaries.com/api/v1/entries/en/stubborn',
-      // {
-      //   //mode: 'cors',
-      //   cache: 'no-cache',
-      //   method: "GET",
-      //   headers: {
-      //                 'Accept': 'application/json',
-      //                 'Content-Type': ' application/json',
-      //                 'app_id': '3d2db6c7',
-      //                 'app_key': 'e0853a2930fcab285ccb1c45dba4548f',
-      //                 'Access-Control-Allow-Origin': '*' 
-      //            },
-      // })
-      // .then(({ results }) => console.log(results))
-      // .catch(( error) => { console.log('error')});
+      console.log(name);
+      fetch(url, {
+          mode: 'no-cors',
+           // regular fetch option
+           method: 'GET',
+        
+           // add reply for this fetch
+           replyWith: {
+               status: 200,
+               body: 'Dictionary app',
+               headers: {
+                   'Content-Type': 'text/json'
+               }
+           }})
+      .then(function(res){
+          console.log(res.text());
+
+          return res.text;
+       })
+      .catch(( error) => { console.log('error')});
 
       // const coinUrl = `${url}${name}/`;
       // const resp = await axios.get(coinUrl);
